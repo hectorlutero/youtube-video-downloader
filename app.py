@@ -1,6 +1,15 @@
 from pytube import YouTube
 
-youtube_url = YouTube('https://www.youtube.com/watch?v=7BXJIjfJCsA')
+def download_video(url):
+    try:
+        yt = YouTube(url)
+        stream = yt.streams.get_highest_resolution()
+        print(f"Downloading: {yt.title}")
+        stream.download()
+        print("Download completed!")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-stream = youtube_url.streams.get_by_itag(22)
-stream.download()
+if __name__ == "__main__":
+    url = input("Please enter the YouTube video URL: ")
+    download_video(url)
